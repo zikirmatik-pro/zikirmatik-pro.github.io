@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zikirmatik Pro - Akıllı Zikir ve Tesbihat Uygulaması</title>
+    <meta name="description" content="Modern tasarım, gerçekçi dokunsal titreşim, zengin Esma-ül Hüsna ve dua kütüphanesi ile zikirlerinizi huzurla takip edin.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d0b;
+            --surface: #0e1915;
+            --surface-card: rgba(18, 34, 28, 0.7);
+            --border: rgba(45, 212, 191, 0.15);
+            --border-hover: rgba(45, 212, 191, 0.35);
+            --primary: #10b981;
+            --primary-glow: rgba(16, 185, 129, 0.25);
+            --gold: #f59e0b;
+            --gold-light: #fbbf24;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Ambient Glow Background */
+        .ambient-glow {
+            position: fixed;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(245, 158, 11, 0.05) 50%, transparent 70%);
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        header {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #10b981, #047857);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .brand-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-badge {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--gold-light);
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 99px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            font-weight: 700;
+            margin-left: 6px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+            margin-left: 24px;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 40px auto 80px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 40px;
+            }
+        }
+
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 99px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 48px;
+            line-height: 1.15;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 34px;
+            }
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, #34d399, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 17px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            max-width: 520px;
+        }
+
+        @media (max-width: 900px) {
+            .hero-desc {
+                margin: 0 auto 32px;
+            }
+        }
+
+        .cta-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 900px) {
+            .cta-group {
+                justify-content: center;
+            }
+        }
+
+        .btn-appstore {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 15px;
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-appstore:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(255, 255, 255, 0.25);
+        }
+
+        .btn-appstore svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Phone Mockup */
+        .phone-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-frame {
+            width: 310px;
+            height: 620px;
+            background: #0f1c17;
+            border-radius: 46px;
+            padding: 12px;
+            border: 4px solid #233c32;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px var(--primary-glow);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .phone-notch {
+            width: 110px;
+            height: 24px;
+            background: #000;
+            border-radius: 0 0 16px 16px;
+            margin: 0 auto 12px;
+        }
+
+        .phone-screen {
+            flex: 1;
+            background: #14241e;
+            border-radius: 36px;
+            padding: 24px 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #fff;
+            text-align: center;
+        }
+
+        .mockup-header {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mockup-zikir-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: #fff;
+            margin-top: 15px;
+        }
+
+        .mockup-counter-box {
+            background: #1f372e;
+            border: 1px solid rgba(45, 212, 191, 0.2);
+            border-radius: 20px;
+            padding: 30px 10px;
+            margin: 20px 0;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.4);
+        }
+
+        .mockup-target {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold-light);
+            background: rgba(245, 158, 11, 0.15);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 99px;
+            margin-bottom: 8px;
+        }
+
+        .mockup-counter-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 56px;
+            font-weight: 900;
+            color: #e6f4ef;
+            letter-spacing: -1px;
+        }
+
+        .mockup-tap-button {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2b483c, #1a2f26);
+            border: 3px solid rgba(45, 212, 191, 0.3);
+            margin: 0 auto;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5), 0 0 15px rgba(16, 185, 129, 0.2);
+        }
+
+        /* Features Section */
+        .features {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            backdrop-filter: blur(12px);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+        }
+
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 19px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 10;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 40px 20px;
+            margin-top: 80px;
+            background: #050a08;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-glow"></div>
+
+    <header>
+        <a href="#" class="brand">
+            <div class="brand-icon">📿</div>
+            <span class="brand-text">Zikirmatik Pro</span>
+            <span class="brand-badge">iOS</span>
+        </a>
+        <div class="nav-links">
+            <a href="#features">Özellikler</a>
+            <a href="privacy-policy.html">Gizlilik Politikası</a>
+            <a href="mailto:ozcanbavagir@gmail.com">Destek</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="badge-pill">
+                    ✨ Yeni Nesil Akıllı Zikirmatik
+                </div>
+                <h1>Huzurlu ve Kesintisiz <span>Zikir Deneyimi</span></h1>
+                <p class="hero-desc">
+                    Zikirmatik Pro; gerçekçi dokunsal titreşimi, zengin Esma-ül Hüsna kütüphanesi, detaylı günlük analizleri ve göz yormayan karanlık temasıyla ibadetinize odaklanmanızı sağlar.
+                </p>
+                <div class="cta-group">
+                    <a href="https://apps.apple.com" class="btn-appstore">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.61-.75 1.04-1.8 1.01-2.87-.96.04-2.15.65-2.83 1.44-.58.67-.99 1.74-.92 2.78 1.08.08 2.13-.57 2.74-1.35z"/>
+                        </svg>
+                        <span>App Store'dan İndir</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="phone-wrapper">
+                <div class="phone-frame">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen">
+                        <div class="mockup-header">
+                            <span>Zikirmatik</span>
+                            <span>🌙 🎨</span>
+                        </div>
+                        <div class="mockup-zikir-title">Sübhanallah</div>
+                        <div class="mockup-counter-box">
+                            <span class="mockup-target">HEDEF: 33</span>
+                            <div class="mockup-counter-number">33</div>
+                        </div>
+                        <div class="mockup-tap-button"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="section-header">
+                <h2 class="section-title">İbadetiniz İçin Özenle Tasarlandı</h2>
+                <p class="section-desc">Her detay zikir çekerken dikkatinizi dağıtmayacak ve ibadetinizi kolaylaştıracak şekilde geliştirildi.</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="card-icon">📳</div>
+                    <h3 class="card-title">Dokunsal Titreşim & Ses</h3>
+                    <p class="card-desc">Gerçek bir zikirmatik hissi veren hassas haptic titreşim motoru ve isteğe bağlı hafif dokunma sesi.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="card-icon">📖</div>
+                    <h3 class="card-title">Zengin Dua & Esma Kütüphanesi</h3>
+                    <p class="card-desc">Esma-ül Hüsna, günlük dualar ve faziletli tesbihatlar hazır hedefleri ve anlamlarıyla parmaklarınızın ucunda.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="card-icon">📊</div>
+                    <h3 class="card-title">Detaylı İstatistikler & Analiz</h3>
+                    <p class="card-desc">Günlük, haftalık ve toplam zikir sayılarınızı takip edin, düzenli ibadet alışkanlığı kazanın.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="card-icon">🌙</div>
+                    <h3 class="card-title">Gece & OLED Teması</h3>
+                    <p class="card-desc">Karanlık ortamlarda gözleri yormayan ve OLED ekranlarda pil tasarrufu sağlayan zarif koyu mod.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="card-icon">🎯</div>
+                    <h3 class="card-title">Akıllı Hedef Bildirimi</h3>
+                    <p class="card-desc">33, 99 veya belirlediğiniz özel hedefe ulaştığınızda özel titreşimle ekrana bakmadan haberdar olun.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="card-icon">🔒</div>
+                    <h3 class="card-title">%100 Çevrimdışı & Güvenli</h3>
+                    <p class="card-desc">Verileriniz internete yüklenmez, yalnızca kendi cihazınızda güvenle saklanır. İnternetsiz her yerde çalışır.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="privacy-policy.html">Gizlilik Politikası</a>
+            <a href="guncelleme.json" target="_blank">Sürüm Kontrolü (JSON)</a>
+            <a href="mailto:ozcanbavagir@gmail.com">İletişim & Destek</a>
+        </div>
+        <p class="copyright">© 2026 Zikirmatik Pro. Tüm hakları saklıdır.</p>
+    </footer>
+</body>
+</html>
