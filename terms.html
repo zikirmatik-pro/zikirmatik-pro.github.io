@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kullanım Şartları - Zikirmatik Pro</title>
+    <title>Kullanım Şartları (Terms of Use) - Zikirmatik Pro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
@@ -37,6 +37,44 @@
             border-radius: 24px;
             padding: 48px;
             backdrop-filter: blur(12px);
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            color: #fff;
+        }
+        .app-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 6px 14px;
+            border-radius: 99px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .app-link:hover {
+            background: var(--accent-green);
+            color: #000;
+            border-color: var(--accent-green);
         }
         h1 {
             font-family: 'Outfit', sans-serif;
@@ -82,40 +120,35 @@
         a:hover {
             text-decoration: underline;
         }
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 24px;
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-        .back-link:hover {
-            color: #fff;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="index.html" class="back-link">← Ana Sayfaya Dön</a>
+        <div class="top-bar">
+            <a href="index.html" class="back-link">← Ana Sayfaya Dön</a>
+            <a href="https://apps.apple.com/tr/app/zikirmatik-pro-ak%C4%B1ll%C4%B1-tesbih/id6759871327" target="_blank" rel="noopener" class="app-link">
+                 App Store'da Görüntüle
+            </a>
+        </div>
+
         <h1>Kullanım Şartları (Terms of Use)</h1>
-        <span class="sub">Son Güncelleme: 29 Ekim 2026</span>
+        <span class="sub">Son Güncelleme / Last Updated: 29 Ekim 2026</span>
 
         <p>Zikirmatik Pro mobil uygulamasını indirerek veya kullanarak aşağıdaki şartları kabul etmiş sayılırsınız.</p>
 
-        <h2>1. Hizmetin Kullanımı</h2>
+        <h2>1. Hizmetin Kullanımı (Use of Service)</h2>
         <p>Zikirmatik Pro, kullanıcılarına dijital zikir, tesbihat ve ibadet takibi hizmeti sunar. Uygulama kişisel ve ticari olmayan kullanım içindir.</p>
 
-        <h2>2. Uygulama İçi Satın Alımlar ve Abonelikler</h2>
+        <h2>2. Uygulama İçi Satın Alımlar ve Abonelikler (Subscriptions)</h2>
         <p>Zikirmatik Pro sürümü, reklamların kaldırılması ve sınırsız özelliklere erişim sağlar. Satın alma işlemleri Apple App Store hesabınız üzerinden gerçekleştirilir ve Apple'ın Standart Son Kullanıcı Lisans Sözleşmesi (EULA) kurallarına tabidir.</p>
 
-        <h2>3. Sorumluluk Reddi</h2>
+        <h2>3. Sorumluluk Reddi (Disclaimer)</h2>
         <p>Uygulama "olduğu gibi" sunulmaktadır. Geliştirici, uygulamanın kesintisiz veya hatasız çalışacağını garanti etmez, ancak en iyi deneyimi sunmak için sürekli güncellemeler yapar.</p>
 
         <h2>4. Standart Apple EULA</h2>
         <p>Uygulamamız ayrıca Apple'ın standart lisans koşullarını benimser. Detaylı bilgi için: <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">Apple Standart EULA</a>.</p>
 
-        <h2>5. İletişim</h2>
+        <h2>5. İletişim (Contact)</h2>
         <p>Kullanım şartlarıyla ilgili tüm sorularınız için:</p>
         <p><strong>E-posta:</strong> <a href="mailto:bavagir.dev@gmail.com">bavagir.dev@gmail.com</a></p>
     </div>

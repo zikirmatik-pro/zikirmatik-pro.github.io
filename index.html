@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
     <meta name="description" content="Modern tasarım, gerçekçi dokunsal titreşim, zengin Esma-ül Hüsna ve dua kütüphanesi ile zikirlerinizi huzurla takip edin.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #070d0b;
@@ -35,6 +35,20 @@
             color: var(--text-main);
             overflow-x: hidden;
             line-height: 1.6;
+            transition: direction 0.3s ease;
+        }
+
+        /* RTL specific overrides */
+        html[dir="rtl"] body {
+            font-family: 'Amiri', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        html[dir="rtl"] .brand-badge {
+            margin-left: 0;
+            margin-right: 6px;
+        }
+        html[dir="rtl"] .nav-links a {
+            margin-left: 0;
+            margin-right: 20px;
         }
 
         /* Ambient Glow Background */
@@ -45,7 +59,7 @@
             transform: translateX(-50%);
             width: 800px;
             height: 600px;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(245, 158, 11, 0.05) 50%, transparent 70%);
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.14) 0%, rgba(245, 158, 11, 0.06) 50%, transparent 70%);
             filter: blur(80px);
             pointer-events: none;
             z-index: 0;
@@ -53,13 +67,15 @@
 
         header {
             position: relative;
-            z-index: 10;
+            z-index: 20;
             max-width: 1200px;
             margin: 0 auto;
             padding: 24px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
         .brand {
@@ -100,17 +116,67 @@
             margin-left: 6px;
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
         .nav-links a {
             color: var(--text-muted);
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
             transition: color 0.2s;
-            margin-left: 24px;
         }
 
         .nav-links a:hover {
             color: #fff;
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 99px;
+            padding: 3px;
+            gap: 2px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 99px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .lang-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .lang-btn.active {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
         }
 
         /* Hero Section */
@@ -198,7 +264,7 @@
         .btn-appstore {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             background: #ffffff;
             color: #000000;
             text-decoration: none;
@@ -207,17 +273,43 @@
             font-weight: 700;
             font-size: 15px;
             box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
         }
 
         .btn-appstore:hover {
             transform: translateY(-2px);
             box-shadow: 0 14px 30px rgba(255, 255, 255, 0.25);
+            background: #f3f4f6;
         }
 
         .btn-appstore svg {
-            width: 24px;
-            height: 24px;
+            width: 26px;
+            height: 26px;
+            flex-shrink: 0;
+        }
+
+        .btn-text-block {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            line-height: 1.2;
+        }
+        html[dir="rtl"] .btn-text-block {
+            text-align: right;
+        }
+
+        .btn-sub {
+            font-size: 10px;
+            font-weight: 500;
+            opacity: 0.7;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .btn-main {
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
         }
 
         /* Phone Mockup */
@@ -238,6 +330,7 @@
             display: flex;
             flex-direction: column;
             position: relative;
+            user-select: none;
         }
 
         .phone-notch {
@@ -282,7 +375,7 @@
             background: #1f372e;
             border: 1px solid rgba(45, 212, 191, 0.2);
             border-radius: 20px;
-            padding: 30px 10px;
+            padding: 28px 10px;
             margin: 20px 0;
             box-shadow: inset 0 2px 10px rgba(0,0,0,0.4);
         }
@@ -296,6 +389,7 @@
             padding: 4px 12px;
             border-radius: 99px;
             margin-bottom: 8px;
+            letter-spacing: 1px;
         }
 
         .mockup-counter-number {
@@ -304,6 +398,7 @@
             font-weight: 900;
             color: #e6f4ef;
             letter-spacing: -1px;
+            transition: transform 0.1s ease;
         }
 
         .mockup-tap-button {
@@ -314,6 +409,20 @@
             border: 3px solid rgba(45, 212, 191, 0.3);
             margin: 0 auto;
             box-shadow: 0 8px 25px rgba(0,0,0,0.5), 0 0 15px rgba(16, 185, 129, 0.2);
+            cursor: pointer;
+            transition: transform 0.08s ease, box-shadow 0.08s ease;
+            outline: none;
+        }
+
+        .mockup-tap-button:active {
+            transform: scale(0.92);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.7), 0 0 8px rgba(16, 185, 129, 0.4);
+        }
+
+        .mockup-hint {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 6px;
         }
 
         /* Features Section */
@@ -391,13 +500,41 @@
             line-height: 1.6;
         }
 
+        /* Banner CTA */
+        .bottom-cta {
+            position: relative;
+            z-index: 10;
+            max-width: 1000px;
+            margin: 60px auto 100px;
+            padding: 50px 30px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(245, 158, 11, 0.08));
+            border: 1px solid rgba(45, 212, 191, 0.3);
+            border-radius: 30px;
+            text-align: center;
+            backdrop-filter: blur(16px);
+        }
+
+        .bottom-cta h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .bottom-cta p {
+            color: var(--text-muted);
+            max-width: 500px;
+            margin: 0 auto 28px;
+            font-size: 15px;
+        }
+
         /* Footer */
         footer {
             position: relative;
             z-index: 10;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             padding: 40px 20px;
-            margin-top: 80px;
+            margin-top: 40px;
             background: #050a08;
             text-align: center;
         }
@@ -435,29 +572,40 @@
             <span class="brand-text">Zikirmatik Pro</span>
             <span class="brand-badge">iOS</span>
         </a>
-        <div class="nav-links">
-            <a href="#features">Özellikler</a>
-            <a href="privacy-policy.html">Gizlilik Politikası</a>
-            <a href="mailto:bavagir.dev@gmail.com">Destek</a>
+        <div class="nav-right">
+            <nav class="nav-links">
+                <a href="#features" id="navFeatures">Özellikler</a>
+                <a href="privacy-policy.html" id="navPrivacy">Gizlilik Politikası</a>
+                <a href="mailto:bavagir.dev@gmail.com" id="navSupport">Destek</a>
+            </nav>
+            <div class="lang-switcher" role="group" aria-label="Language Switcher">
+                <button class="lang-btn active" data-lang="tr" onclick="setLanguage('tr')">TR</button>
+                <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="ar" onclick="setLanguage('ar')">العربية</button>
+                <button class="lang-btn" data-lang="id" onclick="setLanguage('id')">ID</button>
+            </div>
         </div>
     </header>
 
     <main>
         <section class="hero">
             <div class="hero-content">
-                <div class="badge-pill">
+                <div class="badge-pill" id="heroBadge">
                     ✨ Yeni Nesil Akıllı Zikirmatik
                 </div>
-                <h1>Huzurlu ve Kesintisiz <span>Zikir Deneyimi</span></h1>
-                <p class="hero-desc">
+                <h1 id="heroTitle">Huzurlu ve Kesintisiz <span>Zikir Deneyimi</span></h1>
+                <p class="hero-desc" id="heroDesc">
                     Zikirmatik Pro; gerçekçi dokunsal titreşimi, zengin Esma-ül Hüsna kütüphanesi, detaylı günlük analizleri ve göz yormayan karanlık temasıyla ibadetinize odaklanmanızı sağlar.
                 </p>
                 <div class="cta-group">
-                    <a href="https://apps.apple.com" class="btn-appstore">
+                    <a href="https://apps.apple.com/tr/app/zikirmatik-pro-ak%C4%B1ll%C4%B1-tesbih/id6759871327" target="_blank" rel="noopener" class="btn-appstore">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.61-.75 1.04-1.8 1.01-2.87-.96.04-2.15.65-2.83 1.44-.58.67-.99 1.74-.92 2.78 1.08.08 2.13-.57 2.74-1.35z"/>
                         </svg>
-                        <span>App Store'dan İndir</span>
+                        <div class="btn-text-block">
+                            <span class="btn-sub" id="btnSub1">App Store'dan</span>
+                            <span class="btn-main" id="btnMain1">Hemen İndir</span>
+                        </div>
                     </a>
                 </div>
             </div>
@@ -467,15 +615,18 @@
                     <div class="phone-notch"></div>
                     <div class="phone-screen">
                         <div class="mockup-header">
-                            <span>Zikirmatik</span>
+                            <span id="mockupAppTitle">Zikirmatik</span>
                             <span>🌙 🎨</span>
                         </div>
-                        <div class="mockup-zikir-title">Sübhanallah</div>
+                        <div class="mockup-zikir-title" id="mockupZikirName">Sübhanallah</div>
                         <div class="mockup-counter-box">
-                            <span class="mockup-target">HEDEF: 33</span>
-                            <div class="mockup-counter-number">33</div>
+                            <span class="mockup-target" id="mockupTarget">HEDEF: 33</span>
+                            <div class="mockup-counter-number" id="mockupNumber">33</div>
                         </div>
-                        <div class="mockup-tap-button"></div>
+                        <div>
+                            <button class="mockup-tap-button" id="mockupBtn" aria-label="Zikir Çek" onclick="incrementMockup()"></button>
+                            <div class="mockup-hint" id="mockupHint">👆 Butona dokun</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -483,57 +634,329 @@
 
         <section id="features" class="features">
             <div class="section-header">
-                <h2 class="section-title">İbadetiniz İçin Özenle Tasarlandı</h2>
-                <p class="section-desc">Her detay zikir çekerken dikkatinizi dağıtmayacak ve ibadetinizi kolaylaştıracak şekilde geliştirildi.</p>
+                <h2 class="section-title" id="sectionTitle">İbadetiniz İçin Özenle Tasarlandı</h2>
+                <p class="section-desc" id="sectionDesc">Her detay zikir çekerken dikkatinizi dağıtmayacak ve ibadetinizi kolaylaştıracak şekilde geliştirildi.</p>
             </div>
 
             <div class="feature-grid">
                 <div class="feature-card">
                     <div class="card-icon">📳</div>
-                    <h3 class="card-title">Dokunsal Titreşim & Ses</h3>
-                    <p class="card-desc">Gerçek bir zikirmatik hissi veren hassas haptic titreşim motoru ve isteğe bağlı hafif dokunma sesi.</p>
+                    <h3 class="card-title" id="f1Title">Dokunsal Titreşim & Ses</h3>
+                    <p class="card-desc" id="f1Desc">Gerçek bir zikirmatik hissi veren hassas haptic titreşim motoru ve isteğe bağlı hafif dokunma sesi.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="card-icon">📖</div>
-                    <h3 class="card-title">Zengin Dua & Esma Kütüphanesi</h3>
-                    <p class="card-desc">Esma-ül Hüsna, günlük dualar ve faziletli tesbihatlar hazır hedefleri ve anlamlarıyla parmaklarınızın ucunda.</p>
+                    <h3 class="card-title" id="f2Title">Zengin Dua & Esma Kütüphanesi</h3>
+                    <p class="card-desc" id="f2Desc">Esma-ül Hüsna, günlük dualar ve faziletli tesbihatlar hazır hedefleri ve anlamlarıyla parmaklarınızın ucunda.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="card-icon">📊</div>
-                    <h3 class="card-title">Detaylı İstatistikler & Analiz</h3>
-                    <p class="card-desc">Günlük, haftalık ve toplam zikir sayılarınızı takip edin, düzenli ibadet alışkanlığı kazanın.</p>
+                    <h3 class="card-title" id="f3Title">Detaylı İstatistikler & Analiz</h3>
+                    <p class="card-desc" id="f3Desc">Günlük, haftalık, aylık ve yıllık zikir sayılarınızı takip edin, düzenli ibadet alışkanlığı kazanın.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="card-icon">🌙</div>
-                    <h3 class="card-title">Gece & OLED Teması</h3>
-                    <p class="card-desc">Karanlık ortamlarda gözleri yormayan ve OLED ekranlarda pil tasarrufu sağlayan zarif koyu mod.</p>
+                    <h3 class="card-title" id="f4Title">Gece & OLED Teması</h3>
+                    <p class="card-desc" id="f4Desc">Karanlık ortamlarda gözleri yormayan ve OLED ekranlarda pil tasarrufu sağlayan zarif koyu mod.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="card-icon">🎯</div>
-                    <h3 class="card-title">Akıllı Hedef Bildirimi</h3>
-                    <p class="card-desc">33, 99 veya belirlediğiniz özel hedefe ulaştığınızda özel titreşimle ekrana bakmadan haberdar olun.</p>
+                    <h3 class="card-title" id="f5Title">Akıllı Hedef Bildirimi</h3>
+                    <p class="card-desc" id="f5Desc">33, 99 veya belirlediğiniz özel hedefe ulaştığınızda özel titreşimle ekrana bakmadan haberdar olun.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="card-icon">🔒</div>
-                    <h3 class="card-title">%100 Çevrimdışı & Güvenli</h3>
-                    <p class="card-desc">Verileriniz internete yüklenmez, yalnızca kendi cihazınızda güvenle saklanır. İnternetsiz her yerde çalışır.</p>
+                    <h3 class="card-title" id="f6Title">%100 Çevrimdışı & Güvenli</h3>
+                    <p class="card-desc" id="f6Desc">Verileriniz internete yüklenmez, yalnızca kendi cihazınızda güvenle saklanır. İnternetsiz her yerde çalışır.</p>
                 </div>
             </div>
+        </section>
+
+        <!-- Bottom CTA -->
+        <section class="bottom-cta">
+            <h2 id="bottomCtaTitle">Zikirlerinizi Huzurla Takip Edin</h2>
+            <p id="bottomCtaDesc">Hemen App Store üzerinden Zikirmatik Pro'yu indirin, maneviyatınıza odaklanın.</p>
+            <a href="https://apps.apple.com/tr/app/zikirmatik-pro-ak%C4%B1ll%C4%B1-tesbih/id6759871327" target="_blank" rel="noopener" class="btn-appstore">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.61-.75 1.04-1.8 1.01-2.87-.96.04-2.15.65-2.83 1.44-.58.67-.99 1.74-.92 2.78 1.08.08 2.13-.57 2.74-1.35z"/>
+                </svg>
+                <div class="btn-text-block">
+                    <span class="btn-sub" id="btnSub2">App Store'dan</span>
+                    <span class="btn-main" id="btnMain2">Ücretsiz İndir</span>
+                </div>
+            </a>
         </section>
     </main>
 
     <footer>
         <div class="footer-links">
-            <a href="privacy-policy.html">Gizlilik Politikası</a>
-            <a href="terms.html">Kullanım Şartları</a>
-            <a href="mailto:bavagir.dev@gmail.com">İletişim & Destek</a>
+            <a href="privacy-policy.html" id="footerPrivacy">Gizlilik Politikası</a>
+            <a href="terms.html" id="footerTerms">Kullanım Şartları</a>
+            <a href="https://apps.apple.com/tr/app/zikirmatik-pro-ak%C4%B1ll%C4%B1-tesbih/id6759871327" target="_blank" rel="noopener">App Store</a>
+            <a href="mailto:bavagir.dev@gmail.com" id="footerSupport">İletişim & Destek</a>
         </div>
-        <p class="copyright">© 2026 Zikirmatik Pro. Tüm hakları saklıdır.</p>
+        <p class="copyright" id="footerCopyright">© 2026 Zikirmatik Pro. Tüm hakları saklıdır.</p>
     </footer>
+
+    <script>
+        const i18n = {
+            tr: {
+                pageTitle: "Zikirmatik Pro - Akıllı Zikir ve Tesbihat Uygulaması",
+                metaDesc: "Modern tasarım, gerçekçi dokunsal titreşim, zengin Esma-ül Hüsna ve dua kütüphanesi ile zikirlerinizi huzurla takip edin.",
+                navFeatures: "Özellikler",
+                navPrivacy: "Gizlilik Politikası",
+                navSupport: "Destek",
+                heroBadge: "✨ Yeni Nesil Akıllı Zikirmatik",
+                heroTitle: "Huzurlu ve Kesintisiz <span>Zikir Deneyimi</span>",
+                heroDesc: "Zikirmatik Pro; gerçekçi dokunsal titreşimi, zengin Esma-ül Hüsna kütüphanesi, detaylı günlük analizleri ve göz yormayan karanlık temasıyla ibadetinize odaklanmanızı sağlar.",
+                btnSub: "App Store'dan",
+                btnMain1: "Hemen İndir",
+                btnMain2: "Ücretsiz İndir",
+                mockupAppTitle: "Zikirmatik",
+                mockupZikirName: "Sübhanallah",
+                mockupTarget: "HEDEF: 33",
+                mockupHint: "👆 Butona dokun",
+                sectionTitle: "İbadetiniz İçin Özenle Tasarlandı",
+                sectionDesc: "Her detay zikir çekerken dikkatinizi dağıtmayacak ve ibadetinizi kolaylaştıracak şekilde geliştirildi.",
+                f1Title: "Dokunsal Titreşim & Ses",
+                f1Desc: "Gerçek bir zikirmatik hissi veren hassas haptic titreşim motoru ve isteğe bağlı hafif dokunma sesi.",
+                f2Title: "Zengin Dua & Esma Kütüphanesi",
+                f2Desc: "Esma-ül Hüsna, günlük dualar ve faziletli tesbihatlar hazır hedefleri ve anlamlarıyla parmaklarınızın ucunda.",
+                f3Title: "Detaylı İstatistikler & Analiz",
+                f3Desc: "Günlük, haftalık, aylık ve yıllık zikir sayılarınızı takip edin, düzenli ibadet alışkanlığı kazanın.",
+                f4Title: "Gece & OLED Teması",
+                f4Desc: "Karanlık ortamlarda gözleri yormayan ve OLED ekranlarda pil tasarrufu sağlayan zarif koyu mod.",
+                f5Title: "Akıllı Hedef Bildirimi",
+                f5Desc: "33, 99 veya belirlediğiniz özel hedefe ulaştığınızda özel titreşimle ekrana bakmadan haberdar olun.",
+                f6Title: "%100 Çevrimdışı & Güvenli",
+                f6Desc: "Verileriniz internete yüklenmez, yalnızca kendi cihazınızda güvenle saklanır. İnternetsiz her yerde çalışır.",
+                bottomCtaTitle: "Zikirlerinizi Huzurla Takip Edin",
+                bottomCtaDesc: "Hemen App Store üzerinden Zikirmatik Pro'yu indirin, maneviyatınıza odaklanın.",
+                footerPrivacy: "Gizlilik Politikası",
+                footerTerms: "Kullanım Şartları",
+                footerSupport: "İletişim & Destek",
+                footerCopyright: "© 2026 Zikirmatik Pro. Tüm hakları saklıdır."
+            },
+            en: {
+                pageTitle: "Zikirmatik Pro - Smart Tasbih & Dhikr Counter",
+                metaDesc: "Peaceful remembrance experience with realistic haptic feedback, rich Asma-ul Husna library, and detailed analytics.",
+                navFeatures: "Features",
+                navPrivacy: "Privacy Policy",
+                navSupport: "Support",
+                heroBadge: "✨ Next-Gen Smart Tasbih",
+                heroTitle: "Peaceful & Seamless <span>Tasbih Experience</span>",
+                heroDesc: "Zikirmatik Pro helps you focus purely on your remembrance with realistic haptic vibration, rich Asma-ul Husna library, detailed daily analytics, and eye-friendly dark mode.",
+                btnSub: "Download on the",
+                btnMain1: "App Store",
+                btnMain2: "Get It Free",
+                mockupAppTitle: "Tasbih",
+                mockupZikirName: "Subhanallah",
+                mockupTarget: "TARGET: 33",
+                mockupHint: "👆 Tap the button",
+                sectionTitle: "Crafted for Your Spiritual Journey",
+                sectionDesc: "Every single detail is designed to keep you focused on remembrance without distractions.",
+                f1Title: "Haptic Vibration & Sound",
+                f1Desc: "Realistic physical tasbih sensation with precision haptics and optional gentle feedback sound.",
+                f2Title: "Rich Dua & Asma Library",
+                f2Desc: "Asma-ul Husna, daily supplications, and virtues with meanings and preset targets at your fingertips.",
+                f3Title: "Detailed Analytics & Tracking",
+                f3Desc: "Track your daily, weekly, monthly, and yearly counts. Build a consistent and disciplined habit.",
+                f4Title: "Night & OLED Dark Theme",
+                f4Desc: "Gentle on your eyes in low-light environments while saving battery life on OLED displays.",
+                f5Title: "Smart Target Alerts",
+                f5Desc: "Feel a distinct vibration alert when reaching 33, 99, or custom targets without looking at the screen.",
+                f6Title: "100% Offline & Private",
+                f6Desc: "Your dhikr records stay securely on your personal device. Fully operational without internet.",
+                bottomCtaTitle: "Track Your Remembrance with Peace",
+                bottomCtaDesc: "Download Zikirmatik Pro on the App Store today and elevate your daily prayers.",
+                footerPrivacy: "Privacy Policy",
+                footerTerms: "Terms of Use",
+                footerSupport: "Contact & Support",
+                footerCopyright: "© 2026 Zikirmatik Pro. All rights reserved."
+            },
+            ar: {
+                pageTitle: "زيكيرماتيك برو - مسبحة إلكترونية ذكية لتتبع الأذكار",
+                metaDesc: "تطبيق مسبحة ذكية بتصميم راقٍ، اهتزاز لمسي واقعي، مكتبة أسماء الله الحسنى، وإحصائيات مفصلة للأذكار.",
+                navFeatures: "الميزات",
+                navPrivacy: "سياسة الخصوصية",
+                navSupport: "الدعم الفني",
+                heroBadge: "✨ مسبحة إلكترونية ذكية حديثة",
+                heroTitle: "تجربة تسبيح هادئة و <span>متواصلة</span>",
+                heroDesc: "تطبيق زيكيرماتيك برو يساعدك على التركيز في ذكرك بفضل الاهتزاز اللمسي الواقعي، ومكتبة أسماء الله الحسنى، والتحليلات المفصلة، والمظهر الداكن المريح للعينين.",
+                btnSub: "تحميل من",
+                btnMain1: "App Store",
+                btnMain2: "تنزيل مجاني",
+                mockupAppTitle: "المسبحة",
+                mockupZikirName: "سبحان الله",
+                mockupTarget: "الهدف: ٣٣",
+                mockupHint: "👆 اضغط على الزر",
+                sectionTitle: "مصمم بعناية لعبادتك وذكرك",
+                sectionDesc: "تم تطوير كل التفاصيل بحيث لا تشتت انتباهك أثناء الذكر وتسهل عبادتك اليومية.",
+                f1Title: "اهتزاز لمسي وصوت ناعم",
+                f1Desc: "محرك اهتزاز هابتك دقيق يمنحك شعور المسبحة الحقيقية مع صوت نقر اختياري خفيف.",
+                f2Title: "مكتبة الأدعية وأسماء الله الحسنى",
+                f2Desc: "أسماء الله الحسنى، أذكار الصباح والمساء، والأدعية المأثورة مع الأهداف الجاهزة والمعاني.",
+                f3Title: "إحصائيات وتحليلات شاملة",
+                f3Desc: "تابع أعداد أذكارك اليومية والأسبوعية والشهرية والسنوية واكتسب عادة تسبيح منتظمة.",
+                f4Title: "مظهر داكن مخصص لـ OLED",
+                f4Desc: "تصميم أنيق ومريح للعين في الأماكن المظلمة ويوفر طاقة بطارية شاشات OLED.",
+                f5Title: "تنبيه ذكي عند اكتمال الهدف",
+                f5Desc: "اهتزاز خاص عند الوصول إلى ٣٣ أو ٩٩ أو أي هدف تحدده دون الحاجة للنظر إلى الشاشة.",
+                f6Title: "يعمل بدون إنترنت وآمن ١٠٠٪",
+                f6Desc: "بياناتك لا تُرفع على أي خادم خارجي، بل تُحفظ بأمان داخل جهازك الشخصي فقط.",
+                bottomCtaTitle: "تتبع أذكارك بكل راحة وطمأنينة",
+                bottomCtaDesc: "حمّل زيكيرماتيك برو الآن من متجر App Store وابدأ رحلتك الإيمانية اليومية.",
+                footerPrivacy: "سياسة الخصوصية",
+                footerTerms: "شروط الاستخدام",
+                footerSupport: "التواصل والدعم",
+                footerCopyright: "© ٢٠٢٦ زيكيرماتيك برو. جميع الحقوق محفوظة."
+            },
+            id: {
+                pageTitle: "Zikirmatik Pro - Tasbih Digital Pintar & Pelacak Dzikir",
+                metaDesc: "Lacak dzikir harian Anda dengan getaran haptik realistis, pustaka Asmaul Husna lengkap, dan analisis mendalam.",
+                navFeatures: "Fitur",
+                navPrivacy: "Kebijakan Privasi",
+                navSupport: "Bantuan",
+                heroBadge: "✨ Tasbih Digital Pintar Generasi Baru",
+                heroTitle: "Pengalaman Berdzikir <span>Tenang & Lancar</span>",
+                heroDesc: "Zikirmatik Pro membantu Anda fokus beribadah dengan getaran haptik realistis, pustaka Asmaul Husna lengkap, analisis harian mendalam, dan tema gelap yang ramah mata.",
+                btnSub: "Unduh di",
+                btnMain1: "App Store",
+                btnMain2: "Unduh Gratis",
+                mockupAppTitle: "Tasbih Digital",
+                mockupZikirName: "Subhanallah",
+                mockupTarget: "TARGET: 33",
+                mockupHint: "👆 Tekan tombol",
+                sectionTitle: "Dirancang Khusus untuk Ibadah Anda",
+                sectionDesc: "Setiap detail dikembangkan agar Anda dapat berdzikir dengan khusyuk tanpa gangguan.",
+                f1Title: "Getaran Haptik & Efek Suara",
+                f1Desc: "Sensasi tasbih fisik yang nyata dengan getaran haptik presisi dan efek suara sentuhan lembut opsional.",
+                f2Title: "Pustaka Doa & Asmaul Husna",
+                f2Desc: "Asmaul Husna, doa harian, dan keutamaan dzikir lengkap dengan arti dan target hitungan siap pakai.",
+                f3Title: "Analisis & Statistik Lengkap",
+                f3Desc: "Pantau catatan dzikir harian, mingguan, bulanan, dan tahunan Anda untuk membangun kebiasaan ibadah rutin.",
+                f4Title: "Mode Malam & Tema OLED",
+                f4Desc: "Nyaman dipandang dalam kondisi gelap serta hemat daya baterai pada layar OLED.",
+                f5Title: "Notifikasi Target Pintar",
+                f5Desc: "Rasakan getaran khusus saat mencapai hitungan 33, 99, atau target pribadi tanpa perlu melihat layar.",
+                f6Title: "100% Offline & Sangat Aman",
+                f6Desc: "Data riwayat dzikir Anda tersimpan aman hanya di perangkat Anda. Berfungsi penuh tanpa koneksi internet.",
+                bottomCtaTitle: "Lacak Dzikir Anda dengan Khusyuk",
+                bottomCtaDesc: "Unduh Zikirmatik Pro sekarang di App Store dan tingkatkan rutinitas ibadah harian Anda.",
+                footerPrivacy: "Kebijakan Privasi",
+                footerTerms: "Syarat & Ketentuan",
+                footerSupport: "Kontak & Bantuan",
+                footerCopyright: "© 2026 Zikirmatik Pro. Hak cipta dilindungi."
+            }
+        };
+
+        function setLanguage(lang) {
+            if (!i18n[lang]) lang = 'tr';
+            localStorage.setItem('zikirmatik_lang', lang);
+
+            // Update dir and lang attributes
+            const isRtl = lang === 'ar';
+            document.documentElement.setAttribute('lang', lang);
+            document.documentElement.setAttribute('dir', isRtl ? 'rtl' : 'ltr');
+
+            // Active button state
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+
+            const t = i18n[lang];
+
+            // Update Texts
+            document.title = t.pageTitle;
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) metaDesc.setAttribute('content', t.metaDesc);
+
+            const setText = (id, text) => {
+                const el = document.getElementById(id);
+                if (el) el.innerText = text;
+            };
+
+            setText('navFeatures', t.navFeatures);
+            setText('navPrivacy', t.navPrivacy);
+            setText('navSupport', t.navSupport);
+            setText('heroBadge', t.heroBadge);
+
+            const heroTitleEl = document.getElementById('heroTitle');
+            if (heroTitleEl) heroTitleEl.innerHTML = t.heroTitle;
+
+            setText('heroDesc', t.heroDesc);
+            setText('btnSub1', t.btnSub);
+            setText('btnMain1', t.btnMain1);
+            setText('btnSub2', t.btnSub);
+            setText('btnMain2', t.btnMain2);
+
+            setText('mockupAppTitle', t.mockupAppTitle);
+            setText('mockupZikirName', t.mockupZikirName);
+            setText('mockupTarget', t.mockupTarget);
+            setText('mockupHint', t.mockupHint);
+
+            setText('sectionTitle', t.sectionTitle);
+            setText('sectionDesc', t.sectionDesc);
+
+            setText('f1Title', t.f1Title);
+            setText('f1Desc', t.f1Desc);
+            setText('f2Title', t.f2Title);
+            setText('f2Desc', t.f2Desc);
+            setText('f3Title', t.f3Title);
+            setText('f3Desc', t.f3Desc);
+            setText('f4Title', t.f4Title);
+            setText('f4Desc', t.f4Desc);
+            setText('f5Title', t.f5Title);
+            setText('f5Desc', t.f5Desc);
+            setText('f6Title', t.f6Title);
+            setText('f6Desc', t.f6Desc);
+
+            setText('bottomCtaTitle', t.bottomCtaTitle);
+            setText('bottomCtaDesc', t.bottomCtaDesc);
+
+            setText('footerPrivacy', t.footerPrivacy);
+            setText('footerTerms', t.footerTerms);
+            setText('footerSupport', t.footerSupport);
+            setText('footerCopyright', t.footerCopyright);
+        }
+
+        // Interactive Phone Mockup Counter
+        let count = 33;
+        function incrementMockup() {
+            count++;
+            const numEl = document.getElementById('mockupNumber');
+            if (numEl) {
+                numEl.innerText = count;
+                numEl.style.transform = 'scale(1.15)';
+                setTimeout(() => {
+                    numEl.style.transform = 'scale(1)';
+                }, 100);
+            }
+        }
+
+        // Initialize language
+        (function initLang() {
+            const saved = localStorage.getItem('zikirmatik_lang');
+            if (saved && i18n[saved]) {
+                setLanguage(saved);
+                return;
+            }
+            const navLang = (navigator.language || 'tr').toLowerCase();
+            if (navLang.startsWith('ar')) {
+                setLanguage('ar');
+            } else if (navLang.startsWith('id') || navLang.startsWith('in')) {
+                setLanguage('id');
+            } else if (navLang.startsWith('en')) {
+                setLanguage('en');
+            } else {
+                setLanguage('tr');
+            }
+        })();
+    </script>
 </body>
 </html>
